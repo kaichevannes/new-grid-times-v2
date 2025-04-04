@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { MARKET_DATA, SPORTS_STORIES } from '../../data';
+import { QUERIES } from '../../constants';
 
 import MarketCard from '../MarketCard';
 import SectionTitle from '../SectionTitle';
@@ -36,7 +37,9 @@ const SpecialtyStoryGrid = () => {
         </SectionTitle>
         <SportsStories>
           {SPORTS_STORIES.map((data) => (
-            <MiniStory key={data.id} {...data} />
+            <SportsStoryWrapper key={data.id}>
+              <MiniStory {...data} />
+            </SportsStoryWrapper>
           ))}
         </SportsStories>
       </SportsSection>
@@ -46,15 +49,56 @@ const SpecialtyStoryGrid = () => {
 
 const Wrapper = styled.div`
   display: grid;
+  grid-template-columns: minmax(0, auto);
   gap: 48px;
+
+  @media ${QUERIES.tabletAndUp} {
+    gap: 64px;
+  }
+
+  @media ${QUERIES.laptopAndUp} {
+    grid-template-columns: 1fr minmax(0, 1fr);
+    grid-template-areas:
+      'market' 'sports';
+    gap: 0;
+  }
 `;
 
-const MarketsSection = styled.section``;
+const MarketsSection = styled.section`
+  grid-area: 'market';
 
-const MarketCards = styled.div``;
+  @media ${QUERIES.laptopAndUp} {
+    padding-right: 16px;
+    margin-right: 16px;
+    border-right: 1px solid var(--color-gray-300);
+`;
 
-const SportsSection = styled.section``;
+const MarketCards = styled.div`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+`;
 
-const SportsStories = styled.div``;
+const SportsSection = styled.section`
+  grid-area: 'sports';
+`;
+
+const SportsStories = styled.div`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+  @media ${QUERIES.tabletAndUp} {
+    display: flex;
+    grid-template-columns: revert;
+    overflow: auto;
+  }
+`;
+
+const SportsStoryWrapper = styled.div`
+  @media ${QUERIES.tabletAndUp} {
+    min-width: 220px;
+  }
+`;
 
 export default SpecialtyStoryGrid;
