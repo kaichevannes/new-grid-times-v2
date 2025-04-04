@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { QUERIES } from '../../constants';
 
 const OpinionStory = ({ id, title, author, avatar }) => {
   return (
@@ -17,6 +18,12 @@ const OpinionStory = ({ id, title, author, avatar }) => {
 
 const Wrapper = styled.article`
   color: var(--color-gray-900);
+   
+  @media ${QUERIES.tabletOnly} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Avatar = styled.img`
@@ -25,6 +32,12 @@ const Avatar = styled.img`
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  float: right;
+  margin-left: 16px;
+
+  @media ${QUERIES.tabletOnly} {
+    float: revert;
+  }
 `;
 
 const AuthorName = styled.p`
@@ -32,6 +45,10 @@ const AuthorName = styled.p`
   font-weight: var(--font-weight-medium);
   color: var(--color-gray-700);
   margin-bottom: 4px;
+
+  @media ${QUERIES.tabletOnly} {
+    margin-bottom: 0;
+  }
 `;
 
 const ArticleTitle = styled.h3`
